@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Island+Moments&family=Lobster&family=Open+Sans:wght@400;700&family=Paytone+One&family=Poppins&family=Ubuntu&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +15,23 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1{
+  @apply text-5xl font-opnSans
+}
+h2{
+  @apply text-4xl font-opnSans
+}
+h3{
+  @apply text-3xl font-opnSans
+}
+h4{
+  @apply text-2xl font-opnSans
+}
+h5{
+  @apply text-xl font-opnSans
+}
+h6{
+  @apply text-lg font-opnSans
 }
