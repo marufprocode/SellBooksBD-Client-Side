@@ -17,6 +17,9 @@ module.exports = {
         "poppins":"'Poppins', sans-serif",
         "ubuntu":"'Ubuntu', sans-serif" 
       },
+      backgroundImage:{
+        'loginImageBG': "url('/src/assets/images/LoginImage.png')"
+      },
       colors:{
         primary: "#19D3AE"
       },
@@ -25,7 +28,7 @@ module.exports = {
       },
       boxShadow:{
         "insetShadow":"inset 0px -50px 150px white"
-      }
+      },
     },
   },
   plugins: [require("daisyui")],
