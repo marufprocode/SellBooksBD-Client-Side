@@ -10,7 +10,7 @@ import {
     updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
-
+import getAccessToken from '../callApi/getAccessToken';
 const auth = getAuth(app);
 
 export const sharedContext = createContext(); 
@@ -18,6 +18,7 @@ export const sharedContext = createContext();
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
     const googleProvider = new GoogleAuthProvider();
 
     const googleSignIn = () => {
@@ -61,6 +62,9 @@ const UserContext = ({children}) => {
           console.log(user);
           setUser(user);
           setLoading(false);
+          if(user?.uid){
+            getAccessToken(user?.email);
+          }
         });
         return () => unsubscribe();
       }, [user]);

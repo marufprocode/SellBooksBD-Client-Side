@@ -1,28 +1,75 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import PassResetModal from "./PassResetModal";
 import { sharedContext } from "../../context/UserContext";
-// import loginImg from '../../assets/images/storytelling-ga75904f8c_1920.jpg'
+import axios from "axios";
+import { MagnifyingGlass } from "react-loader-spinner";
 
 const Login = () => {
     const [showPass, setShowPass] = useState(false);
     const [loginError, setLoginError] = useState();
-    const {googleSignIn}= useContext(sharedContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+    const {loading, googleSignIn, userLogin}= useContext(sharedContext);
     const {register, handleSubmit, reset, formState: { errors }} = useForm();
+
+    if (loading)
+      return (
+        <div className="min-h-screen flex justify-center items-center">
+          <MagnifyingGlass
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="MagnifyingGlass-loading"
+            wrapperStyle={{}}
+            wrapperClass="MagnifyingGlass-wrapper"
+            glassColor="#c0efff"
+            color="#e15b64"
+          />
+        </div>
+      );
+
+
     const handleLogin = (data) => {
-        console.log(data);
+        userLogin(data.email, data.password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            if (user.uid){
+                reset()
+                navigate(from, { replace: true });
+            }
+          })
+          .catch((error) => {
+            console.error("error", error);
+            setLoginError(error.code);
+          });
+        
+    }
+
+    if(errors){
+        console.log(errors);
     }
 
     const handleGoogleSignIn = () => {
         googleSignIn()
           .then((userCredential) => {
             // Signed in
-            // const user = userCredential.user;
-            // if (user) {
-            //   navigate(from, { replace: true });
-            // }
+            const user = userCredential.user;
+            const newUser = {
+                name: user?.displayName,
+                email: user?.email,
+                role: 'User',
+                uid: user?.uid,
+            }
+            if (user) {
+                axios.post('http://localhost:5000/users', newUser)
+                .then(res => console.log(res))
+                .catch(err => console.error('[error]:',err))
+                navigate(from, { replace: true });
+            }
           })
           .catch((error) => {
             console.error("error", error);
@@ -31,10 +78,17 @@ const Login = () => {
     }
 
   return (
-    <div data-aos="fade-right" className="min-h-screen bg-[url('/src/assets/images/LoginImage.png')] bg-cover flex">
+    <div>
+      <div data-aos="fade-right" className="min-h-screen bg-[url('/src/assets/images/LoginImage.png')] bg-cover flex">
       <div className="h-screen w-1/2 bg-white flex items-center justify-center">
-        <div className="w-full max-w-md p-8 space-y-3  text-gray-700 mt-10">
+        <div className="w-full max-w-md p-8 space-y-3  text-gray-700">
           <h1 className="text-2xl font-bold text-center">Please Login</h1>
+          <p className="text-sm text-center sm:px-6 text-gray-600">
+            Don't have an account?
+            <Link to="/signup" className="underline text-gray-900">
+              Sign up here
+            </Link>
+          </p>
           <form
             onSubmit={handleSubmit(handleLogin)}
             className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -49,7 +103,7 @@ const Login = () => {
                 required
                 {...register("email")}
                 placeholder="Your Email"
-                className="w-full px-4 py-3 border-gray-700 bg-gray-300 text-gray-700 focus:border-violet-400"
+                className="w-full px-4 py-3 border-gray-700 bg-gray-200 text-gray-700 focus:border-violet-400"
               />
             </div>
             <div className="space-y-1 text-sm relative">
@@ -62,7 +116,7 @@ const Login = () => {
                 required
                 {...register("password")}
                 placeholder="Password"
-                className="w-full px-4 py-3  border-gray-700 bg-gray-300 text-gray-700 focus:border-violet-400"
+                className="w-full px-4 py-3  border-gray-700 bg-gray-200 text-gray-700 focus:border-violet-400"
               />
               <div className="absolute bottom-8 right-3">
                 {showPass ? (
@@ -116,14 +170,9 @@ const Login = () => {
               <p>Login with Google</p>
             </button>
           </div>
-          <p className="text-xs text-center sm:px-6 text-gray-500">
-            Don't have an account?
-            <Link to="/signup" className="underline text-gray-700">
-              Sign up
-            </Link>
-          </p>
         </div>
       </div>
+    </div>
     </div>
   );
 };

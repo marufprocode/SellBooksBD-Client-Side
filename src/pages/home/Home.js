@@ -1,11 +1,14 @@
 import React from 'react';
-import { toast } from 'react-hot-toast';
+import Facility from './Facility';
+import HeroCarousel from './HeroCarousel';
 
 const Home = () => {
     return (
-        <div>
-            <h3>This is Home</h3>
-            <button className="btn" onClick={()=> toast.success('Hello World')}>Toast</button>
+        <div className='h-[80%]'>
+            <div className=''>
+            <HeroCarousel/>
+            </div>
+            <Facility/>
         </div>
     );
 };

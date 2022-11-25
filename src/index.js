@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import 'aos/dist/aos.css';
+
 import {
   QueryClient,
   QueryClientProvider,
