@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { HiOutlinePhotograph } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import getImgUrl from "../../callApi/GetImageURL";
 import { sharedContext } from "../../context/UserContext";
 import axios from "axios";
@@ -13,6 +13,7 @@ const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
   const [signUpError, setSignUpError] = useState(false);
+  const navigate = useNavigate();
   const { createNewUser, updateUserProfile } = useContext(sharedContext);
   const [signUpProcessing, setSignUpProcessing] = useState(false);
   const {
@@ -54,6 +55,7 @@ const SignUp = () => {
                 toast.success('User Has Been Created Successfully');
                 reset();
                 setSignUpProcessing(false);
+                navigate('/home');
             }
           })
           .catch((error) => {

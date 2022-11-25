@@ -17,11 +17,7 @@ const AddProducts = () => {
   const {data:categories=[]} = useQuery({
     queryKey:['ProductCategories'],
     queryFn: async () => {
-        const response = await axios.get('http://localhost:5000/product-categories',{
-            headers:{
-                authorization: `bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
+        const response = await axios.get('http://localhost:5000/product-categories')
         const data = response.data; 
         return data;
     }
@@ -30,6 +26,7 @@ const AddProducts = () => {
     setAddProductProcessing(true);
     data['sellerName'] = user?.displayName;
     data['postDate'] = format(new Date(), "PP");
+    data['sellerEmail'] = user?.email;
     getImgUrl(data.image[0])
     .then(res => {
         if(res.data.url){
@@ -46,7 +43,10 @@ const AddProducts = () => {
                     toast.success('Product successfully addeded!');
                 }
             })
-            .catch(err => console.error('[error]:', err))
+            .catch(err => {
+                console.error('[error]:', err);
+                setAddProductProcessing(false);
+            })
         }
     })
   };
