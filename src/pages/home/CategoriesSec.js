@@ -33,7 +33,7 @@ const CategoriesSec = () => {
         <h3 className="font-bold font-payTone text-center mb-7">Books Categories</h3>
         <div className='px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-items-center'>
             {categories?.map((category) => (
-            <Link to={`/category/${category.category_id}`} key={category._id} className="card w-full h-[150px] shadow-2xl image-full category-card">
+            <Link to={`/category/${category.category_id}`} key={category._id} className="card w-full h-[150px] shadow-2xl image-full category-card" data-aos="zoom-in">
                 <figure>
                 <img src={category?.categoryImage} alt="BooksImage" className='w-full object-cover'/>
                 </figure>

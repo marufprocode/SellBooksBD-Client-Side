@@ -27,6 +27,7 @@ const AddProducts = () => {
     data['sellerName'] = user?.displayName;
     data['postDate'] = format(new Date(), "PP");
     data['sellerEmail'] = user?.email;
+    data['sellerId']= user?.uid;
     getImgUrl(data.image[0])
     .then(res => {
         if(res.data.url){
