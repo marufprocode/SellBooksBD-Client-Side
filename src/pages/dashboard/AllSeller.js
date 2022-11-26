@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import ConfirmationModal from '../../components/shared/ConfirmationModal';
 import { sharedContext } from '../../context/UserContext';
 
 const AllSeller = () => {
     const {user} = useContext(sharedContext);
-    const {data:sellers=[]} = useQuery({
+    const [sellerId, setSellerId] = useState('');
+    const {data:sellers=[], refetch} = useQuery({
         queryKey:['SellersList'],
         queryFn: async () => {
             const response = await axios.get(`http://localhost:5000/all-sellers/Seller?email=${user?.email}`, {
@@ -17,7 +19,25 @@ const AllSeller = () => {
             return data;
         }
     })
-    console.log(sellers);
+
+    const verifySeller = (id) => {
+        axios.patch(`http://localhost:5000/verify-seller/${id}?email=${user?.email}`, {status:"Verified"}, {
+            headers:{
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => {
+            if(res.data.modifiedCount){
+                refetch();
+            }
+        })
+        .catch(err => console.error('[error:]'))
+    }
+
+    const deleteSeller = (id) => {
+
+    }
+
     return (
         <div>
         <div className="overflow-x-auto">
@@ -27,7 +47,7 @@ const AllSeller = () => {
                 <th></th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Role</th>
+                <th>Status</th>
                 <th>Action</th>
                 </tr>
             </thead>
@@ -37,12 +57,24 @@ const AllSeller = () => {
                     <th>{index+1}</th>
                     <td>{usr.name}</td>
                     <td>{usr.email}</td>
-                    <td>{usr.role? usr.role:"User"}</td>
-                    <td>{usr.role? "":<><span className="btn btn-xs btn-warning mr-2">Make Admin</span><span className="btn btn-xs btn-error">Delete</span></>}</td>
+                    <td>{usr.status? <button className='btn btn-xs capitalize btn-accent'>Verified</button>:<label htmlFor="confirmation-modal-verifySeller" className="btn btn-xs capitalize btn-error" onClick={()=>setSellerId(usr.uid)}>Unverified</label>}</td>
+                    <td><label htmlFor="confirmation-modal-delete" className='btn btn-xs btn-error capitalize'>Delete</label></td>
                 </tr>
                 ))}
             </tbody>
             </table>
+            <ConfirmationModal
+            modalName="confirmation-modal-verifySeller"
+            confirmationHeading="Are your sure you want to verify this seller?" 
+            ConfirmationText="" 
+            modalActionFn={()=>verifySeller(sellerId)}
+            />
+            <ConfirmationModal
+            modalName="confirmation-modal-delete"
+            confirmationHeading="Are your sure you want to delete this seller?" 
+            ConfirmationText="Make sure after deleted this seller it cannot be undo!" 
+            modalActionFn={()=> deleteSeller(sellerId)}
+            />
         </div>
         </div>
     );

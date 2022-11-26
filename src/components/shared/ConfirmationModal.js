@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ConfirmationModal = ({confirmationHeading, ConfirmationText, modalActionFn}) => {
+const ConfirmationModal = ({modalName, confirmationHeading, ConfirmationText, modalActionFn}) => {
     return (
       <>
         {/* Copy this commented Label Button for modal call where is needed..  */}
@@ -11,7 +11,7 @@ const ConfirmationModal = ({confirmationHeading, ConfirmationText, modalActionFn
 
         <input
           type="checkbox"
-          id="confirmation-modal"
+          id={modalName}
           className="modal-toggle"
         />
         <div className="modal">
@@ -24,14 +24,14 @@ const ConfirmationModal = ({confirmationHeading, ConfirmationText, modalActionFn
             </p>
             <div className="modal-action w-full justify-center">
               <label
-                htmlFor="confirmation-modal"
+                htmlFor={modalName}
                 className="btn btn-error px-10"
                 onClick={modalActionFn}
               >
                 Yes
               </label>
               <label
-                htmlFor="confirmation-modal"
+                htmlFor={modalName}
                 className="btn btn-accent px-7"
               >
                 Cancel
