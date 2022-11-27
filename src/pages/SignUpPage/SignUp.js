@@ -41,6 +41,7 @@ const SignUp = () => {
                 email: data.email,
                 role: data.userRole,
                 uid: user?.uid,
+                verified:false,
             }
             if(user?.uid){
                 updateUserProfile(data.name, data.image)

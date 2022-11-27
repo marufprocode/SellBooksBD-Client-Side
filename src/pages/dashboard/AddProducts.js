@@ -8,10 +8,12 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import { RotatingLines } from "react-loader-spinner";
 import getImgUrl from "../../callApi/GetImageURL";
 import { sharedContext } from "../../context/UserContext";
+import useUserRole from "../../hook/useUserRole";
 
 const AddProducts = () => {
     const {user} = useContext(sharedContext);
     const [addProductProcessing, setAddProductProcessing] = useState(false);
+    const [,,isVerified] = useUserRole(user?.email);
   const {register, handleSubmit, reset, watch, formState: { errors }} = useForm();
     const productImage = watch('image')
   const {data:categories=[]} = useQuery({
@@ -28,6 +30,10 @@ const AddProducts = () => {
     data['postDate'] = format(new Date(), "PP");
     data['sellerEmail'] = user?.email;
     data['sellerId']= user?.uid;
+    data['verified']=isVerified;
+    data['isBooked']=false;
+    data['advertised']=false;
+    data['isPaid']=false;
     getImgUrl(data.image[0])
     .then(res => {
         if(res.data.url){
@@ -52,14 +58,11 @@ const AddProducts = () => {
     })
   };
 
-  if(errors){
-    console.log(errors);
-  }
-
   return (
-    <div className="h-full" onSubmit={handleSubmit(handleAddProduct)}>
+    <div className="h-full">
       <div className="pt-5">
-        <form className="w-[550px] mx-5 max-w-full bg-white p-10 rounded-lg shadow-lg">
+        <form onSubmit={handleSubmit(handleAddProduct)} className="w-[550px] mx-5 max-w-full bg-white p-10 rounded-lg shadow-lg">
+          <h3 className="text-center font-ubuntu font-bold">Add A Product</h3>
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Book Name</span>

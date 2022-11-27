@@ -8,6 +8,7 @@ import AllSeller from "../pages/dashboard/AllSeller";
 import MyBuyers from "../pages/dashboard/MyBuyers";
 import MyOrders from "../pages/dashboard/MyOrders";
 import MyProducts from "../pages/dashboard/MyProducts";
+import MyWishlist from "../pages/dashboard/MyWishlist";
 import ReportedItems from "../pages/dashboard/ReportedItems";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import Home from "../pages/home/Home";
@@ -34,7 +35,7 @@ const routes = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <CategoryBooks/>,
-                loader: ({params}) => fetch(`http://localhost:5000/category/${params.id}`) 
+                // loader: ({params}) => fetch(`http://localhost:5000/category/${params.id}`) 
             },
             {
                 path: '/login',
@@ -79,6 +80,10 @@ const routes = createBrowserRouter([
             {
                 path:'/dashboard/my-orders',
                 element:<UserRoutes><MyOrders/></UserRoutes>
+            },
+            {
+                path:'/dashboard/my-wishlist',
+                element:<UserRoutes><MyWishlist/></UserRoutes>
             },
         ]
     }

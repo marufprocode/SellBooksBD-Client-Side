@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import ConfirmationModal from '../../components/shared/ConfirmationModal';
 import { sharedContext } from '../../context/UserContext';
+import toast from "react-hot-toast";
 
 const AllSeller = () => {
     const {user} = useContext(sharedContext);
@@ -21,7 +22,7 @@ const AllSeller = () => {
     })
 
     const verifySeller = (id) => {
-        axios.patch(`http://localhost:5000/verify-seller/${id}?email=${user?.email}`, {status:"Verified"}, {
+        axios.patch(`http://localhost:5000/verify-seller/${id}?email=${user?.email}`, {verified:true}, {
             headers:{
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -29,13 +30,26 @@ const AllSeller = () => {
         .then(res => {
             if(res.data.modifiedCount){
                 refetch();
+                toast.success('Seller verification done!')
             }
         })
         .catch(err => console.error('[error:]'))
     }
-
+    console.log(sellerId);
     const deleteSeller = (id) => {
-
+        axios.delete(`http://localhost:5000/delete-user/${id}`, {
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => {
+            console.log(res);
+            if(res.data.deletedCount){
+                refetch();
+                toast.success('User deleted successfully');
+            }
+        })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -57,8 +71,8 @@ const AllSeller = () => {
                     <th>{index+1}</th>
                     <td>{usr.name}</td>
                     <td>{usr.email}</td>
-                    <td>{usr.status? <button className='btn btn-xs capitalize btn-accent'>Verified</button>:<label htmlFor="confirmation-modal-verifySeller" className="btn btn-xs capitalize btn-error" onClick={()=>setSellerId(usr.uid)}>Unverified</label>}</td>
-                    <td><label htmlFor="confirmation-modal-delete" className='btn btn-xs btn-error capitalize'>Delete</label></td>
+                    <td>{usr.verified? <button className='btn btn-xs capitalize btn-accent'>Verified</button>:<label htmlFor="confirmation-modal-verifySeller" className="btn btn-xs capitalize btn-error" onClick={()=>setSellerId(usr.uid)}>Unverified</label>}</td>
+                    <td><label htmlFor="confirmation-modal-delete" className='btn btn-xs btn-error capitalize' onClick={()=>setSellerId(usr.uid)}>Delete</label></td>
                 </tr>
                 ))}
             </tbody>

@@ -5,18 +5,20 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import PassResetModal from "./PassResetModal";
 import { sharedContext } from "../../context/UserContext";
 import axios from "axios";
-import { MagnifyingGlass } from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
+// import { MagnifyingGlass } from "react-loader-spinner";
 
 const Login = () => {
     const [showPass, setShowPass] = useState(false);
+    const [loginProcessing, setLoginProcessing] = useState(false);
     const [loginError, setLoginError] = useState();
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
-    const {loading, googleSignIn, userLogin}= useContext(sharedContext);
+    const {/* loading */ googleSignIn, userLogin}= useContext(sharedContext);
     const {register, handleSubmit, reset, formState: { errors }} = useForm();
 
-    if (loading)
+    /* if (loading)
       return (
         <div className="min-h-screen flex justify-center items-center">
           <MagnifyingGlass
@@ -30,21 +32,24 @@ const Login = () => {
             color="#e15b64"
           />
         </div>
-      );
+      ); */
 
 
     const handleLogin = (data) => {
+      setLoginProcessing(true);
         userLogin(data.email, data.password)
           .then((userCredential) => {
             const user = userCredential.user;
             if (user.uid){
                 reset()
                 navigate(from, { replace: true });
+                setLoginProcessing(false);
             }
           })
           .catch((error) => {
             console.error("error", error);
             setLoginError(error.code);
+            setLoginProcessing(false);
           });
         
     }
@@ -63,6 +68,7 @@ const Login = () => {
                 email: user?.email,
                 role: 'User',
                 uid: user?.uid,
+                verified:false
             }
             if (user) {
                 axios.post('http://localhost:5000/users', newUser)
@@ -113,9 +119,10 @@ const Login = () => {
               <input
                 type={showPass ? "text" : "password"}
                 name="password"
+                autoComplete="on"
                 required
                 {...register("password")}
-                placeholder="Password"
+                placeholder="Password..."
                 className="w-full px-4 py-3  border-gray-700 bg-gray-200 text-gray-700 focus:border-violet-400"
               />
               <div className="absolute bottom-8 right-3">
@@ -143,8 +150,18 @@ const Login = () => {
                 {loginError}
               </p>
             )}
-            <button className="block w-full p-3 text-center font-bold text-white bg-primary">
-              Sign in
+            <button disabled={loginProcessing} className="w-full p-3 text-center font-bold text-white bg-primary flex justify-center">
+            {loginProcessing ? (
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="22"
+                  visible={true}
+                />
+              ) : (
+                "Sign In"
+              )}
             </button>
           </form>
           <PassResetModal />

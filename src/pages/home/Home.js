@@ -1,4 +1,5 @@
 import React from 'react';
+import AdvertiseSec from './AdvertiseSec';
 import CategoriesSec from './CategoriesSec';
 import Facility from './Facility';
 import HeroCarousel from './HeroCarousel';
@@ -11,6 +12,7 @@ const Home = () => {
             </div>
             <Facility/>
             <CategoriesSec/>
+            <AdvertiseSec/>
         </div>
     );
 };

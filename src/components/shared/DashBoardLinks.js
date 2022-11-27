@@ -8,9 +8,16 @@ const DashBoardLinks = () => {
   const [userRole] = useUserRole(user?.email);
   return (
     <>
-      <li>
-        <Link to="/dashboard/my-orders">My Orders</Link>
-      </li>
+      {userRole === "User" && (
+        <>
+        <li>
+          <Link to="/dashboard/my-orders">My Orders</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/my-wishlist">My Wishlist</Link>
+        </li>
+        </>
+      )}
       {userRole === "Seller" && (
         <>
           <li>
@@ -24,7 +31,18 @@ const DashBoardLinks = () => {
           </li>
         </>
       )}
-      {userRole === "Admin" && (
+        <div className={`${userRole === "Admin" ? "":"hidden"}`}>
+          <li>
+            <Link to="/dashboard/all-buyers">All Buyers</Link>
+          </li>
+          <li>
+            <Link to="/dashboard/all-sellers">All Sellers</Link>
+          </li>
+          <li>
+            <Link to="/dashboard/reported-items">Reported Items</Link>
+          </li>
+        </div>
+      {/* {userRole === "Admin" && (
         <>
           <li>
             <Link to="/dashboard/all-buyers">All Buyers</Link>
@@ -36,7 +54,7 @@ const DashBoardLinks = () => {
             <Link to="/dashboard/reported-items">Reported Items</Link>
           </li>
         </>
-      )}
+      )} */}
     </>
   );
 };
