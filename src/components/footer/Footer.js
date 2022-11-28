@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import brandLogo from "../../assets/logo/bookSky.png"
-import paymentLogo from "../../assets/logo/payment.png"
+import brandLogo from "../../assets/logo/bookSky.png";
+import paymentLogo from "../../assets/logo/payment.png";
 
 const Footer = () => {
   return (
@@ -62,6 +62,7 @@ const Footer = () => {
             </svg>
           </Link>
         </div>
+        <p>Copyright © 2022, SellBooks- All right reserved</p>
       </div>
     </footer>
   );
