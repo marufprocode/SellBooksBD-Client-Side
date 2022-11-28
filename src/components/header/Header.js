@@ -15,7 +15,7 @@ const Header = () => {
         <img src={logoImg} alt="BrandLogo" className="h-[30px]" />
       </div>
       <div className="flex gap-2">
-        <div className="flex gap-3">
+        <div className="md:flex gap-3 hidden">
           <NavLinks/>
         </div>
         {user?.uid && (
@@ -38,6 +38,9 @@ const Header = () => {
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
+              <li className="md:hidden flex flex-col">
+          <NavLinks/>
+        </li>
               <li>
                 <button onClick={userSignOut}>Logout</button>
               </li>

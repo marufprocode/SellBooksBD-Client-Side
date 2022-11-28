@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext } from "react";
-import { sharedContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
+import { sharedContext } from "../../context/UserContext";
 
 const MyOrders = () => {
     const {user}= useContext(sharedContext);
     const {data:myOrders=[]} = useQuery({
         queryKey:['myOrders'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/my-orders?email=${user?.email}`, {
+            const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/my-orders?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
+import toast from "react-hot-toast";
 import ConfirmationModal from '../../components/shared/ConfirmationModal';
 import { sharedContext } from '../../context/UserContext';
-import toast from "react-hot-toast";
 
 const AllSeller = () => {
     const {user} = useContext(sharedContext);
@@ -11,7 +11,7 @@ const AllSeller = () => {
     const {data:sellers=[], refetch} = useQuery({
         queryKey:['SellersList'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/all-sellers/Seller?email=${user?.email}`, {
+            const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/all-sellers/Seller?email=${user?.email}`, {
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -22,7 +22,7 @@ const AllSeller = () => {
     })
 
     const verifySeller = (id) => {
-        axios.patch(`http://localhost:5000/verify-seller/${id}?email=${user?.email}`, {verified:true}, {
+        axios.patch(`https://sellbooks-second-hand-books-selling-website.vercel.app/verify-seller/${id}?email=${user?.email}`, {verified:true}, {
             headers:{
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -37,7 +37,7 @@ const AllSeller = () => {
     }
     console.log(sellerId);
     const deleteSeller = (id) => {
-        axios.delete(`http://localhost:5000/delete-user/${id}`, {
+        axios.delete(`https://sellbooks-second-hand-books-selling-website.vercel.app/delete-user/${id}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }

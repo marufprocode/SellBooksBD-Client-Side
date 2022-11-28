@@ -11,7 +11,7 @@ const MyWishlist = () => {
     queryKey: ["MyWishList"],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/mywishlist?email=${user?.email}`,
+        `https://sellbooks-second-hand-books-selling-website.vercel.app/mywishlist?email=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,

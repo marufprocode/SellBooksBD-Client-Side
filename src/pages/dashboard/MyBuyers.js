@@ -9,7 +9,7 @@ const MyBuyers = () => {
     const {data:myBuyers=[]} = useQuery({
         queryKey:['MyBuyersList'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/seller/my-buyers?email=${user?.email}`, {
+            const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/seller/my-buyers?email=${user?.email}`, {
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

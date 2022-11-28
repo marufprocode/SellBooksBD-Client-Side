@@ -12,7 +12,7 @@ const MyProducts = () => {
     const {data:myProducts=[], refetch}=useQuery({
         queryKey:['MyProducts'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/my-products?email=${user?.email}`, {
+            const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/my-products?email=${user?.email}`, {
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -27,7 +27,7 @@ const MyProducts = () => {
             product_id: advertiseItem._id,
             productName:advertiseItem.bookName
         }
-        axios.patch(`http://localhost:5000/advertise?email=${user?.email}`, product, {
+        axios.patch(`https://sellbooks-second-hand-books-selling-website.vercel.app/advertise?email=${user?.email}`, product, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -41,7 +41,7 @@ const MyProducts = () => {
     }
 
     const handleDeleteProduct = (bookId) => {
-        axios.delete(`http://localhost:5000/delete-product/${bookId}?email=${user?.email}`, {
+        axios.delete(`https://sellbooks-second-hand-books-selling-website.vercel.app/delete-product/${bookId}?email=${user?.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }

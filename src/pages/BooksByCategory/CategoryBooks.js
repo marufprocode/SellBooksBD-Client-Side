@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MdOutlineFavoriteBorder, MdVerified } from 'react-icons/md';
-import BookingModal from './BookingModal';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
+import { MdOutlineFavoriteBorder, MdVerified } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
 import { sharedContext } from '../../context/UserContext';
 import useUserRole from '../../hook/useUserRole';
-import toast from 'react-hot-toast';
+import BookingModal from './BookingModal';
 
 const CategoryBooks = () => {
     const [book, setBook] = useState(null);
@@ -16,7 +16,7 @@ const CategoryBooks = () => {
     const {data:books=[], refetch} = useQuery({
         queryKey:['booksCollection'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/category/${id}`);
+            const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/category/${id}`);
             return response.data;
         }
     })
@@ -33,7 +33,7 @@ const CategoryBooks = () => {
             category_id: id,
         }
         if (userRole !== 'User') return toast.error('Please Login from a buyer account');
-        axios.post('http://localhost:5000/addto-wishlist', data)
+        axios.post('https://sellbooks-second-hand-books-selling-website.vercel.app/addto-wishlist', data)
         .then(res => {
             console.log(res);
             if(res.data.insertedId){

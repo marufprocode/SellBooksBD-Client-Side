@@ -19,7 +19,7 @@ const AddProducts = () => {
   const {data:categories=[]} = useQuery({
     queryKey:['ProductCategories'],
     queryFn: async () => {
-        const response = await axios.get('http://localhost:5000/product-categories')
+        const response = await axios.get('https://sellbooks-second-hand-books-selling-website.vercel.app/product-categories')
         const data = response.data; 
         return data;
     }
@@ -39,7 +39,7 @@ const AddProducts = () => {
     .then(res => {
         if(res.data.url){
             data['image']=res.data.url;
-            axios.post(`http://localhost:5000/add-products?email=${user?.email}`, data, {
+            axios.post(`https://sellbooks-second-hand-books-selling-website.vercel.app/add-products?email=${user?.email}`, data, {
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

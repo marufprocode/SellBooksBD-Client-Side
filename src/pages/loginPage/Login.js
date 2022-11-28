@@ -1,11 +1,11 @@
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import PassResetModal from "./PassResetModal";
-import { sharedContext } from "../../context/UserContext";
-import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { sharedContext } from "../../context/UserContext";
+import PassResetModal from "./PassResetModal";
 // import { MagnifyingGlass } from "react-loader-spinner";
 
 const Login = () => {
@@ -71,7 +71,7 @@ const Login = () => {
                 verified:false
             }
             if (user) {
-                axios.post('http://localhost:5000/users', newUser)
+                axios.post('https://sellbooks-second-hand-books-selling-website.vercel.app/users', newUser)
                 .then(res => console.log(res))
                 .catch(err => console.error('[error]:',err))
                 navigate(from, { replace: true });

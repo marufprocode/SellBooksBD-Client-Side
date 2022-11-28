@@ -7,20 +7,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 import "./AdvCarousel.css";
 
 // import required modules
-import { Pagination, Navigation, Autoplay } from "swiper";
-import { MdOutlineFavoriteBorder, MdVerified } from 'react-icons/md';
+import { MdVerified } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { Autoplay, Navigation, Pagination } from "swiper";
 
 const AdvertiseSec = () => {
     const {data:advertisedItems=[]} = useQuery({
         queryKey:['advertisedItems'],
         queryFn: async () => {
-            const response = await axios.get('http://localhost:5000/advertised-items')
+            const response = await axios.get('https://sellbooks-second-hand-books-selling-website.vercel.app/advertised-items')
             const data = response.data;
             return data;
         }
@@ -39,6 +40,7 @@ const AdvertiseSec = () => {
             centeredSlides={true}
             loop={true}
             navigation={true}
+            height={400}
             autoplay={{
                 delay: 3500,
                 disableOnInteraction: false,
@@ -61,7 +63,8 @@ const AdvertiseSec = () => {
         >
            {advertisedItems &&
             advertisedItems?.map(book => (
-                <SwiperSlide key={book._id} className="flex justify-center w-[400px]">
+                <Link key={book._id} to={`/category/${book._id}`}>
+                <SwiperSlide className="flex justify-center w-[500px]">
                     <div key={book._id} className='cursor-pointer relative overflow-hidden transition duration-200 transform rounded shadow-lg hover:-translate-y-2 hover:shadow-2xl bg-slate-100'>
                         <div className='max-w-full w-[270px]'>
                             <img
@@ -74,23 +77,15 @@ const AdvertiseSec = () => {
                             <p className='text-sm tracking-wide font-bold text-gray-500'>{book.authorName}</p>
                             <p className='text-sm tracking-wide'>Original Price: ${book.originalPrice}</p>
                             <p className='text-sm tracking-wide'>Offer Price: ${book.resellPrice}</p>
-                            <p className='text-sm tracking-wide'>Used Time: {book.usedTime}</p>
-                            <p className='text-sm tracking-wide'>Condition: {book.condition}</p>
-                            <p className='text-sm tracking-wide'>Posted on: {book.postDate}</p>
                             <p className='text-sm tracking-wide font-bold'>Seller Info:</p>
                             <p className='text-sm tracking-wide flex items-center gap-1 font-bold text-gray-600 font-poppins'>Name: {book.sellerName} {book.verified? <MdVerified className='text-blue-600'/>:""}</p>
                             <p className='text-sm tracking-wide'>Contact No: {book.phone}</p>
                             <p className='text-sm tracking-wide'>Location: {book.location}</p>
                             </div>
-                            <div className="w-full absolute inset-0 transition-opacity duration-200 bg-black bg-opacity-25 opacity-0 hover:opacity-100">
-                                <div className="flex justify-between mt-72 px-1 bg-white py-2">
-                                    <label htmlFor="bookingModal" className="px-2 btn btn-xs" /* onClick={()=>setBook(book)} */ disabled={book.isBooked}>{book?.isBooked?"Booked":"Book Now"}</label>
-                                    <button className='flex btn btn-accent btn-xs items-center text-sm tracking-wide'>Wishlist: <MdOutlineFavoriteBorder/></button>
-                                </div>
-                            </div>
                         </div>
                         </div>
                 </SwiperSlide>
+                </Link>
             ))
            }
         </Swiper>

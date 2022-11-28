@@ -1,6 +1,6 @@
 // import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 
 const useUserRole = (email) => {
@@ -8,7 +8,7 @@ const useUserRole = (email) => {
     const [isVerified, setIsVerified] = useState(false); 
     const [isUserRoleLoading, setIsUserRoleLoading] = useState(true);
     useEffect(()=>{
-        axios.get(`http://localhost:5000/users/role/${email}`, {
+        axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/users/role/${email}`, {
             headers:{
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -30,7 +30,7 @@ const useUserRole = (email) => {
         enabled: !!email,
         queryKey:['userRole'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/users/role/${email}`, {
+            const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/users/role/${email}`, {
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

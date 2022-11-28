@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const CheckoutForm = ({ bookingData }) => {
   const {
@@ -25,7 +25,7 @@ const CheckoutForm = ({ bookingData }) => {
     // Create PaymentIntent as soon as the page loads
     axios
       .post(
-        "http://localhost:5000/create-payment-intent",
+        "https://sellbooks-second-hand-books-selling-website.vercel.app/create-payment-intent",
         { price },
         {
           headers: {
@@ -87,7 +87,7 @@ const CheckoutForm = ({ bookingData }) => {
             buyerEmail,
             transactionID: paymentIntent.id,
         }
-        axios.post('http://localhost:5000/payments', payment)
+        axios.post('https://sellbooks-second-hand-books-selling-website.vercel.app/payments', payment)
         .then(res => {
             if(res.data.insertedId){
                 setpaymentSuccess('Congrats! Your Payment Completed.')

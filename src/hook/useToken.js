@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const useToken = (email) => {
   const [token, setToken] = useState("");
   useEffect(() => {
-    axios.post('http://localhost:5000/jwt', {email})
+    axios.post('https://sellbooks-second-hand-books-selling-website.vercel.app/jwt', {email})
     .then(res => {
         if(res.data.token){
             // localStorage.setItem("accessToken", res.data.token);

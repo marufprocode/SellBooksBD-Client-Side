@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
+import toast from "react-hot-toast";
 import ConfirmationModal from '../../components/shared/ConfirmationModal';
 import { sharedContext } from '../../context/UserContext';
-import toast from "react-hot-toast";
 
 
 const AllBuyers = () => {
@@ -12,7 +12,7 @@ const AllBuyers = () => {
     const {data:allBuyers=[], refetch} = useQuery({
         queryKey:['AllBuyersList'],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:5000/admin/all-buyers?email=${user?.email}`, {
+            const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/admin/all-buyers?email=${user?.email}`, {
                 headers:{
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -23,7 +23,7 @@ const AllBuyers = () => {
     })
     
     const handleDeleteBuyer = (email) => {
-        axios.delete(`http://localhost:5000/admin/delete-buyer/${email}?email=${user?.email}`, {
+        axios.delete(`https://sellbooks-second-hand-books-selling-website.vercel.app/admin/delete-buyer/${email}?email=${user?.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }

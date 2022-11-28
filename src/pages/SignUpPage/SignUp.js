@@ -1,13 +1,13 @@
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { HiOutlinePhotograph } from "react-icons/hi";
+import { RotatingLines } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import getImgUrl from "../../callApi/GetImageURL";
 import { sharedContext } from "../../context/UserContext";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { RotatingLines } from "react-loader-spinner";
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
@@ -50,7 +50,7 @@ const SignUp = () => {
                   }).catch((error) => {
                     console.error('An error occured while updating profile');
                   });
-                axios.post('http://localhost:5000/users', newUser)
+                axios.post('https://sellbooks-second-hand-books-selling-website.vercel.app/users', newUser)
                 .then(res => console.log(res))
                 .catch(err => console.error('[error]:',err))
                 toast.success('User Has Been Created Successfully');

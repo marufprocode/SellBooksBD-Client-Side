@@ -39,7 +39,7 @@ const routes = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <CategoryBooks/>,
-                // loader: ({params}) => fetch(`http://localhost:5000/category/${params.id}`) 
+                // loader: ({params}) => fetch(`https://sellbooks-second-hand-books-selling-website.vercel.app/category/${params.id}`) 
             },
             {
                 path: '/login',
@@ -52,13 +52,13 @@ const routes = createBrowserRouter([
             {
                 path: '/blogs',
                 element: <Blogs/>,
-                loader: () => fetch(`http://localhost:5000/blogs`) 
+                loader: () => fetch(`https://sellbooks-second-hand-books-selling-website.vercel.app/blogs`) 
 
             },
             {
                 path: '/blog/:id',
                 element: <BlogsDetail/>,
-                loader: ({params}) => fetch(`http://localhost:5000/blogs/${params.id}`) 
+                loader: ({params}) => fetch(`https://sellbooks-second-hand-books-selling-website.vercel.app/blogs/${params.id}`) 
             }
         ]
 
@@ -75,7 +75,7 @@ const routes = createBrowserRouter([
             {
                 path:'/dashboard/payment/:id',
                 element: <UserRoutes><Payment/></UserRoutes>,
-                loader: ({params}) => fetch(`http://localhost:5000/bookingbyid/${params.id}`)
+                loader: ({params}) => fetch(`https://sellbooks-second-hand-books-selling-website.vercel.app/bookingbyid/${params.id}`)
             },
             {
                 path:'/dashboard/add-products',
