@@ -1,5 +1,9 @@
 ## Live Website Link: https://sellbooksbd.web.app/
 
+## Admin User's Credentials:
+    adminEmail: sellbooksadmin@gmail.com
+    adminPassword: 1111wwww
+
 ## Website Features:
     * Role based Private Route Implemented (Admin, User, and Seller).
     * Single Page Application give you better experience.

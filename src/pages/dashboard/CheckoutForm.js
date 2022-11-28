@@ -169,7 +169,7 @@ const CheckoutForm = ({ bookingData }) => {
                   disabled
                 />
               </div>
-              <div className="mt-8">
+              <div className="my-8">
                 <input
                   className="border border-gray-300 p-4 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600"
                   type="email"
@@ -185,6 +185,8 @@ const CheckoutForm = ({ bookingData }) => {
                       base: {
                         fontSize: "16px",
                         color: "#424770",
+                        paddingBottom:"10px",
+                        paddingTop:"10px",
                         "::placeholder": {
                           color: "#aab7c4",
                         },
@@ -210,7 +212,7 @@ const CheckoutForm = ({ bookingData }) => {
                   </div>
                 )}
                   <button
-                    className=" mt-5 py-0 my-0 btn-sm w-full btn cursor-pointer h-full px-5 text-white font-bold font-ubuntu"
+                    className="mt-5 py-0 my-0 btn-sm w-full btn cursor-pointer h-full px-5 text-white font-bold font-ubuntu"
                     type="submit"
                     disabled={
                       !stripe ||

@@ -25,6 +25,7 @@ const CategoryBooks = () => {
         const data = {
             bookId : book._id,
             bookName : book.bookName,
+            sellerId: book.sellerId,
             price : book.resellPrice,
             image: book.image,
             buyerName: user?.displayName,
@@ -50,7 +51,7 @@ const CategoryBooks = () => {
         <section data-aos="fade-left">
             <h4 className='font-bold font-ubuntu mt-10 px-24'>Books Category {'>>'} {books[0]?.category}</h4>
             <div className='px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 justify-items-center my-8 gap-y-10'>
-                {
+                {   
                     books?.map(book => (
                         <div key={book._id} className='cursor-pointer relative overflow-hidden transition duration-200 transform rounded shadow-lg hover:-translate-y-2 hover:shadow-2xl bg-slate-100'>
                         <div className='max-w-full w-[270px]'>
