@@ -6,7 +6,7 @@ import Header from '../components/header/Header';
 const Main = () => {
     return (
         <div>
-            <div className='mb-12'>
+            <div className='mb-16'>
             <Header/>
             </div>
             <div className='min-h-screen'>
