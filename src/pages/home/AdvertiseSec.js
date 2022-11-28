@@ -32,7 +32,7 @@ const AdvertiseSec = () => {
         {
             advertisedItems.length > 0 ?
             <div className='flex w-full justify-center'>
-            <div className='my-20 rounded-lg border px-10 flex flex-col justify-center overflow-hidden md:max-w-screen-md lg:max-w-screen-lg'>
+            <div className='my-20 rounded-lg px-10 flex flex-col justify-center overflow-hidden md:max-w-screen-md lg:max-w-screen-lg'>
             <h3 className='text-center mb-8 font-payTone'>Sellers Advertisement</h3>
             <Swiper
             slidesPerView={1}

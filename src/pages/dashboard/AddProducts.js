@@ -6,63 +6,81 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { RotatingLines } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 import getImgUrl from "../../callApi/GetImageURL";
 import { sharedContext } from "../../context/UserContext";
 import useUserRole from "../../hook/useUserRole";
 
 const AddProducts = () => {
-    const {user} = useContext(sharedContext);
-    const [addProductProcessing, setAddProductProcessing] = useState(false);
-    const [,,isVerified] = useUserRole(user?.email);
-  const {register, handleSubmit, reset, watch, formState: { errors }} = useForm();
-    const productImage = watch('image')
-  const {data:categories=[]} = useQuery({
-    queryKey:['ProductCategories'],
+  const { user } = useContext(sharedContext);
+  const [addProductProcessing, setAddProductProcessing] = useState(false);
+  const [, , isVerified] = useUserRole(user?.email);
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const productImage = watch("image");
+  const { data: categories = [] } = useQuery({
+    queryKey: ["ProductCategories"],
     queryFn: async () => {
-        const response = await axios.get('https://sellbooks-second-hand-books-selling-website.vercel.app/product-categories')
-        const data = response.data; 
-        return data;
-    }
-  })
+      const response = await axios.get(
+        "https://sellbooks-second-hand-books-selling-website.vercel.app/product-categories"
+      );
+      const data = response.data;
+      return data;
+    },
+  });
   const handleAddProduct = (data) => {
     setAddProductProcessing(true);
-    data['sellerName'] = user?.displayName;
-    data['postDate'] = format(new Date(), "PP");
-    data['sellerEmail'] = user?.email;
-    data['sellerId']= user?.uid;
-    data['verified']=isVerified;
-    data['isBooked']=false;
-    data['advertised']=false;
-    data['isPaid']=false;
-    data['available']=true;
-    getImgUrl(data.image[0])
-    .then(res => {
-        if(res.data.url){
-            data['image']=res.data.url;
-            axios.post(`https://sellbooks-second-hand-books-selling-website.vercel.app/add-products?email=${user?.email}`, data, {
-                headers:{
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
-                }
-            })
-            .then(res => {
-                if(res.data.insertedId){
-                    reset();
-                    setAddProductProcessing(false);
-                    toast.success('Product successfully addeded!');
-                }
-            })
-            .catch(err => {
-                console.error('[error]:', err);
-                setAddProductProcessing(false);
-            })
-        }
-    })
+    data["sellerName"] = user?.displayName;
+    data["postDate"] = format(new Date(), "PP");
+    data["sellerEmail"] = user?.email;
+    data["sellerId"] = user?.uid;
+    data["verified"] = isVerified;
+    data["isBooked"] = false;
+    data["advertised"] = false;
+    data["isPaid"] = false;
+    data["available"] = true;
+    getImgUrl(data.image[0]).then((res) => {
+      if (res.data.url) {
+        data["image"] = res.data.url;
+        axios
+          .post(
+            `https://sellbooks-second-hand-books-selling-website.vercel.app/add-products?email=${user?.email}`,
+            data,
+            {
+              headers: {
+                authorization: `bearer ${localStorage.getItem("accessToken")}`,
+              },
+            }
+          )
+          .then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              setAddProductProcessing(false);
+              navigate("/dashboard/my-products");
+              toast.success("Product successfully addeded!");
+            }
+          })
+          .catch((err) => {
+            console.error("[error]:", err);
+            setAddProductProcessing(false);
+          });
+      }
+    });
   };
 
   return (
     <div className="h-full">
       <div className="pt-5">
-        <form onSubmit={handleSubmit(handleAddProduct)} className="w-[550px] mx-5 max-w-full bg-white p-10 rounded-lg shadow-lg">
+        <form
+          onSubmit={handleSubmit(handleAddProduct)}
+          className="w-[550px] mx-5 max-w-full bg-white p-10 rounded-lg shadow-lg"
+        >
           <h3 className="text-center font-ubuntu font-bold">Add A Product</h3>
           <div className="form-control w-full">
             <label className="label">
@@ -124,7 +142,7 @@ const AddProducts = () => {
               className="input input-sm input-bordered w-full"
             />
           </div>
-          
+
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Condition</span>
@@ -150,15 +168,16 @@ const AddProducts = () => {
                 className="select select-sm select-bordered w-full"
                 required
                 {...register("category", {
-                    required: true,
-                    validate: (value) =>
-                      value !== "Please Select a Category" || "Please Select a Category",
-                  })}
+                  required: true,
+                  validate: (value) =>
+                    value !== "Please Select a Category" ||
+                    "Please Select a Category",
+                })}
               >
                 <option disabled>Please Select a Category</option>
-                {
-                    categories.map(category => <option key={category._id}>{category.category}</option>)
-                }
+                {categories.map((category) => (
+                  <option key={category._id}>{category.category}</option>
+                ))}
               </select>
             )}
             {errors?.category?.message && (
@@ -175,7 +194,12 @@ const AddProducts = () => {
             <input
               type="number"
               required
-              {...register("phone", {pattern: {value: /^[0-9]{11,11}$/, message:'Phone Number Should Contain 11 Digit'}})}
+              {...register("phone", {
+                pattern: {
+                  value: /^[0-9]{11,11}$/,
+                  message: "Phone Number Should Contain 11 Digit",
+                },
+              })}
               placeholder="Type here"
               className="input input-sm input-bordered w-full"
             />
@@ -209,8 +233,8 @@ const AddProducts = () => {
               Choose Photo
               <HiOutlinePhotograph className="w-6 h-6 text-gray-400" />
               {productImage && (
-                  <p className="text-gray-800">{productImage[0]?.name}</p>
-                )}
+                <p className="text-gray-800">{productImage[0]?.name}</p>
+              )}
             </label>
             <input
               type="file"
@@ -227,18 +251,22 @@ const AddProducts = () => {
               {errors.image?.message}
             </p>
           )}
-          <button disabled={addProductProcessing} className="btn mt-5 w-full" type="submit">
-          {addProductProcessing ? (
-                <RotatingLines
-                  strokeColor="grey"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="22"
-                  visible={true}
-                />
-              ) : (
-                "Add Product"
-              )}
+          <button
+            disabled={addProductProcessing}
+            className="btn mt-5 w-full"
+            type="submit"
+          >
+            {addProductProcessing ? (
+              <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="22"
+                visible={true}
+              />
+            ) : (
+              "Add Product"
+            )}
           </button>
         </form>
       </div>

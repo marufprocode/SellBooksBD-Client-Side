@@ -9,9 +9,5 @@
 
 .drawer-side{
     height: 100%;
-    /* min-height: inherit; */
-    /* min-height: initial; */
-    /* min-height: revert; */
-    /* min-height: revert-layer; */
     min-height: fit-content(20em);
 }

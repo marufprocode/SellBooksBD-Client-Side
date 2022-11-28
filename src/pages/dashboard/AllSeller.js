@@ -54,8 +54,8 @@ const AllSeller = () => {
 
     return (
         <div>
-        <div className="overflow-x-auto">
-            <table className="table w-[95%] min-w-fit">
+        <div className="overflow-x-scroll">
+            <table className="table w-[95%] min-w-fit overflow-x-scroll">
             <thead>
                 <tr className="">
                 <th></th>
