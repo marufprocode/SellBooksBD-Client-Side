@@ -70,11 +70,11 @@ const SignUp = () => {
   return (
     <div
       data-aos="fade-left"
-      className="min-h-screen bg-[url('/src/assets/images/LoginImage.png')] bg-cover flex"
+      className="min-h-screen h-fit bg-[url('/src/assets/images/LoginImage.png')] bg-cover flex px-3 md:px-0"
     >
-      <div className="w-[50%]"></div>
-      <div className="w-[50%] min-h-screen bg-white flex items-center justify-center">
-        <div className="w-full h-fit max-w-md p-8 space-y-3 text-gray-700 mt-10">
+      <div className="w-[50%] hidden md:block"></div>
+      <div className="h-fit pb-5 w-full lg:w-1/2 bg-[url('/src/assets/images/LoginImage.png') lg:bg-white flex items-center justify-center">
+        <div className="w-full h-fit max-w-md p-8 space-y-3 text-gray-700 mt-10 shadow-lg md:shadow-none bg-white">
           <h1 className="text-2xl font-bold text-center">
             Create Your Account
           </h1>

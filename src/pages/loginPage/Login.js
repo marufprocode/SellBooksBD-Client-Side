@@ -85,9 +85,9 @@ const Login = () => {
 
   return (
     <div>
-      <div data-aos="fade-right" className="min-h-screen bg-[url('/src/assets/images/LoginImage.png')] bg-cover flex">
-      <div className="h-screen w-1/2 bg-white flex items-center justify-center">
-        <div className="w-full max-w-md p-8 space-y-3  text-gray-700">
+      <div data-aos="fade-right" className="min-h-screen bg-[url('/src/assets/images/LoginImage.png')] bg-cover flex px-3 md:px-0">
+      <div className="h-screen w-full lg:w-1/2 bg-[url('/src/assets/images/LoginImage.png') lg:bg-white flex items-center justify-center">
+        <div className="w-full max-w-md p-8 space-y-3 bg-white text-gray-700 shadow-lg lg:shadow-none">
           <h1 className="text-2xl font-bold text-center">Please Login</h1>
           <p className="text-sm text-center sm:px-6 text-gray-600">
             Don't have an account?
