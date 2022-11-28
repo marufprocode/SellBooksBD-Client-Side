@@ -26,7 +26,6 @@ const SignUp = () => {
   const userImage = watch("image");
   const password = watch("password");
   const handleCreateAccount = (data) => {
-    console.log(data.image[0]);
     setSignUpProcessing(true);
     getImgUrl(data.image[0])
     .then(res => {

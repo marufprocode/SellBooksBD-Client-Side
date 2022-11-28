@@ -29,7 +29,6 @@ const AllBuyers = () => {
             }
         })
         .then(res => {
-            console.log(res)
             if(res.data.deletedCount){
                 toast.success('Buyer has been deleted successfully.');
                 refetch();

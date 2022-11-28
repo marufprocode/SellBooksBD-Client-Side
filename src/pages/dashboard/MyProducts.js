@@ -46,7 +46,6 @@ const MyProducts = () => {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         }).then(res => {
-            console.log(res)
             if(res.data.deletedCount){
                 toast.success('Product deleted successfully')
                 refetch();

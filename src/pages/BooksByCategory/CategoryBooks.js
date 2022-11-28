@@ -22,7 +22,6 @@ const CategoryBooks = () => {
     })
 
     const handleAddtoWishList = (book) => {
-        console.log(book);
         const data = {
             bookId : book._id,
             bookName : book.bookName,

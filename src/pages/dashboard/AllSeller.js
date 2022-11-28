@@ -43,7 +43,6 @@ const AllSeller = () => {
             }
         })
         .then(res => {
-            console.log(res);
             if(res.data.deletedCount){
                 refetch();
                 toast.success('User deleted successfully');

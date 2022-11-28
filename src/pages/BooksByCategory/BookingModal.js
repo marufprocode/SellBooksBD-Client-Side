@@ -33,7 +33,6 @@ const BookingModal = ({ book, refetch }) => {
         data
       )
       .then((res) => {
-        console.log(res);
         if (res.data.insertedId) {
           toast.success("Congratulations! Booking Successful.");
           refetch();

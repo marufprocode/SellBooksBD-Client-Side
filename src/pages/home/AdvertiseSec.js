@@ -14,7 +14,6 @@ import "./AdvCarousel.css";
 
 // import required modules
 import { MdVerified } from 'react-icons/md';
-import { Link } from 'react-router-dom';
 import { Autoplay, Navigation, Pagination } from "swiper";
 
 const AdvertiseSec = () => {
@@ -62,10 +61,9 @@ const AdvertiseSec = () => {
             className="mySwiper flex justify-center h-fit"
         >
            {advertisedItems &&
-            advertisedItems?.map(book => (
-                <Link key={book._id} to={`/category/${book._id}`}>
-                <SwiperSlide className="flex justify-center w-[500px]">
-                    <div key={book._id} className='cursor-pointer relative overflow-hidden transition duration-200 transform rounded shadow-lg hover:-translate-y-2 hover:shadow-2xl bg-slate-100'>
+            advertisedItems?.map((book, index) => (
+                <SwiperSlide className="flex justify-center w-[500px]" key={index}>
+                    <div className='cursor-pointer relative overflow-hidden transition duration-200 transform rounded shadow-lg hover:-translate-y-2 hover:shadow-2xl bg-slate-100'>
                         <div className='max-w-full w-[270px]'>
                             <img
                             className='object-center w-full h-56 md:h-64 xl:h-80'
@@ -85,7 +83,6 @@ const AdvertiseSec = () => {
                         </div>
                         </div>
                 </SwiperSlide>
-                </Link>
             ))
            }
         </Swiper>

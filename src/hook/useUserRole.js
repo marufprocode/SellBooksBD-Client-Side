@@ -17,7 +17,6 @@ const useUserRole = (email) => {
             setUserRole(res.data.role);
             setIsVerified(res.data.verified);
             setIsUserRoleLoading(false);
-            console.log(res.data);
         }).catch(err => console.error('[error]:', err))
     },[email])
     return [userRole, isUserRoleLoading, isVerified];

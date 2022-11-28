@@ -18,7 +18,6 @@ const MyOrders = () => {
             return data;
         }
     })
-    console.log(myOrders);
   return (
     <div className="px-5">
       {

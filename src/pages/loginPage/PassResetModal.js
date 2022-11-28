@@ -8,32 +8,6 @@ const PassResetModal = () => {
   const navigate = useNavigate();
 
   const handleResetPass = (data) => {
-    console.log(data);
-    // resetUserPassword(data.email)
-    /* .then(() => {
-      toast.success('A Password Reset Email has been sent to your email, please check!', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
-    })
-    .catch((error) => {
-      toast.error(error.code, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
-    }) */
     reset();
     navigate('/home');
   };

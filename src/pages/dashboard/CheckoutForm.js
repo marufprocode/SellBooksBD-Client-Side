@@ -78,7 +78,6 @@ const CheckoutForm = ({ bookingData }) => {
         return;
     } 
     if (paymentIntent.status === "succeeded"){
-        console.log(card);
         const payment = {
             bookingId: _id,
             buyerName,

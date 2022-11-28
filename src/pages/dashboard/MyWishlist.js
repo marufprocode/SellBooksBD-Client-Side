@@ -22,7 +22,6 @@ const MyWishlist = () => {
       return data;
     },
   });
-  console.log(myWishlist);
   return (
     <div className="px-5">
       {myWishlist.length > 0 ? (

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 import logoImg from "../../assets/logo/bookSky.png";
 import NavLinks from "./NavLinks";
@@ -9,6 +9,7 @@ import sidebarLogo from "../../assets/images/hamburger.png"
 const Header = () => {
   const { userSignOut, user } = useContext(sharedContext);
   const [userRole] = useUserRole(user?.email);
+  const location = useLocation();
   return (
     <div className="navbar flex justify-between shadow-md bg-slate-50 px-7">
       <div className="flex">
@@ -47,7 +48,7 @@ const Header = () => {
             </ul>
           </div>
         )}
-        <label htmlFor="dashboard-sidebar" className="btn btn-link lg:hidden"><img src={sidebarLogo} alt="MenuIcon" className="w-6 h-6"/></label>
+        <label htmlFor="dashboard-sidebar" className={`${location.pathname.includes('dashboard')? "btn btn-link lg:hidden":"hidden"}`}><img src={sidebarLogo} alt="MenuIcon" className="w-6 h-6"/></label>
       </div>
     </div>
   );

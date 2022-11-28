@@ -6,14 +6,14 @@ const NavLinks = () => {
   const { user } = useContext(sharedContext);
   return (
     <>
-      <div>
-        <NavLink to="/home">Home</NavLink>
+      <div className="w-full">
+        <NavLink to="/home" className="w-full">Home</NavLink>
       </div>
-      <div>
-        <NavLink to="/blogs">Blogs</NavLink>
+      <div className="w-full">
+        <NavLink to="/blogs" className="w-full">Blogs</NavLink>
       </div>
-      <div className={`${user?.uid ? "hidden" : ""}`}>
-        <NavLink to="/login">Login</NavLink>
+      <div className={`${user?.uid ? "hidden" : "w-full"}`}>
+        <NavLink to="/login" className='w-full'>Login</NavLink>
       </div>
     </>
   );
