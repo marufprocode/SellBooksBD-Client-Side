@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 import logoImg from "../../assets/logo/bookSky.png";
 import NavLinks from "./NavLinks";
-import DashBoardLinks from "../shared/DashBoardLinks";
 import useUserRole from "../../hook/useUserRole";
+import sidebarLogo from "../../assets/images/hamburger.png"
 
 const Header = () => {
   const { userSignOut, user } = useContext(sharedContext);
@@ -44,9 +44,8 @@ const Header = () => {
                   <span className="badge">{userRole === 'Admin' ? 'Admin': userRole === 'Seller'? 'Seller':'Profile'}</span>
                 </Link>
               </li>
-              <DashBoardLinks/>
               <li>
-                <Link>Settings</Link>
+                <Link to="/dashboard">Dashboard</Link>
               </li>
               <li>
                 <button onClick={userSignOut}>Logout</button>
@@ -54,6 +53,7 @@ const Header = () => {
             </ul>
           </div>
         )}
+        <label htmlFor="dashboard-sidebar" className="btn btn-link lg:hidden"><img src={sidebarLogo} alt="MenuIcon" className="w-6 h-6"/></label>
       </div>
     </div>
   );

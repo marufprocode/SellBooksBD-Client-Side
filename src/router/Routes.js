@@ -5,10 +5,12 @@ import CategoryBooks from "../pages/BooksByCategory/CategoryBooks";
 import AddProducts from "../pages/dashboard/AddProducts";
 import AllBuyers from "../pages/dashboard/AllBuyers";
 import AllSeller from "../pages/dashboard/AllSeller";
+import Dashboard from "../pages/dashboard/Dashboard";
 import MyBuyers from "../pages/dashboard/MyBuyers";
 import MyOrders from "../pages/dashboard/MyOrders";
 import MyProducts from "../pages/dashboard/MyProducts";
 import MyWishlist from "../pages/dashboard/MyWishlist";
+import Payment from "../pages/dashboard/Payment";
 import ReportedItems from "../pages/dashboard/ReportedItems";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import Home from "../pages/home/Home";
@@ -53,6 +55,15 @@ const routes = createBrowserRouter([
         element: <UserRoutes><DashboardLayout/></UserRoutes>,
         errorElement: <ErrorPage/>,
         children:[
+            {
+                path:'/dashboard',
+                element: <UserRoutes><Dashboard/></UserRoutes>
+            },
+            {
+                path:'/dashboard/payment/:id',
+                element: <UserRoutes><Payment/></UserRoutes>,
+                loader: ({params}) => fetch(`http://localhost:5000/bookingbyid/${params.id}`)
+            },
             {
                 path:'/dashboard/add-products',
                 element: <SellerRoutes><AddProducts/></SellerRoutes>

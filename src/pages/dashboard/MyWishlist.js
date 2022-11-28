@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 
 const MyWishlist = () => {
@@ -50,7 +51,7 @@ const MyWishlist = () => {
                   </td>
                   <td>${order.price}</td>
                   <td>
-                    <button className="btn btn-sm btn-accent">Pay Now</button>
+                  {order.paid? <button className="btn btn-sm btn-disabled">Paid</button>:<Link to={`/dashboard/payment/${order?._id}`} className="btn btn-sm btn-accent">Pay Now</Link> }
                   </td>
                 </tr>
               ))}
