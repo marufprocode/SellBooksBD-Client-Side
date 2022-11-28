@@ -11,7 +11,7 @@ const Header = () => {
   const [userRole] = useUserRole(user?.email);
   const location = useLocation();
   return (
-    <div className="navbar flex justify-between shadow-md bg-slate-50 px-7">
+    <div className="navbar flex justify-between shadow-md bg-slate-50 px-7 fixed top-0 z-50">
       <div className="flex">
         <img src={logoImg} alt="BrandLogo" className="h-[30px]" />
       </div>

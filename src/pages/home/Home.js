@@ -18,7 +18,9 @@ const Home = () => {
             <Facility/>
             <CategoriesSec/>
             <AdvertiseSec/>
+            <div className='py-16'>
             <Testimonials/>
+            </div>
             </div>
         </div>
     );

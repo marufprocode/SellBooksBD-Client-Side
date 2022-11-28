@@ -7,7 +7,7 @@ import customerImage2 from "../../assets/customer/image2.jpg"
 const Testimonials = () => {
     return (
         <div>
-            <h3 className='font-bold font-payTone text-center mb-7'>Testimonial of our Customers</h3>
+            <h3 className='font-bold font-payTone text-center'>Testimonial of our Customers</h3>
             <div className="flex items-center justify-between h-full w-full absolute z-0">
                 <div className="w-1/3 bg-white h-full" />
                 <div className="w-4/6 ml-16 bg-gray-100 pb-10 h-full" />

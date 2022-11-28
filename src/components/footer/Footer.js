@@ -5,7 +5,7 @@ import paymentLogo from "../../assets/logo/payment.png";
 
 const Footer = () => {
   return (
-    <footer className="footer py-16 mt-7 lg:px-20 px-10 bg-base-300 text-base-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+    <footer className="footer py-16 z-50 lg:px-20 px-10 bg-base-300 text-base-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
       <div className="relative w-full mb-10 sm:mb-0">
         <img src={brandLogo} alt="brandLogo" className="w-[150px]"/>
         <span className="footer-title mt-5">We Accept</span>
