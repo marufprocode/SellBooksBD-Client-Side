@@ -30,6 +30,7 @@ const CategoryBooks = () => {
             image: book.image,
             buyerName: user?.displayName,
             buyerEmail: user?.email,
+            category_id: id,
         }
         if (userRole !== 'User') return toast.error('Please Login from a buyer account');
         axios.post('http://localhost:5000/addto-wishlist', data)

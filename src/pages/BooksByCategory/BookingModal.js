@@ -26,6 +26,7 @@ const BookingModal = ({ book, refetch }) => {
     data['price']=book?.resellPrice;
     data['bookId'] = book?._id;
     data['image']= book?.image; 
+    data['paymentStatus']= 'Unpaid'; 
     axios.post('http://localhost:5000/bookings', data)
     .then(res => {
         console.log(res)

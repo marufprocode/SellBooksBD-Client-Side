@@ -14,15 +14,6 @@ const Header = () => {
       <div className="flex">
         <img src={logoImg} alt="BrandLogo" className="h-[30px]" />
       </div>
-      <div>
-        <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered"
-          />
-        </div>
-      </div>
       <div className="flex gap-2">
         <div className="flex gap-3">
           <NavLinks/>

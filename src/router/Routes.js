@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
+import Blogs from "../pages/blogs/Blogs";
+import BlogsDetail from "../pages/blogs/BlogsDetail";
 import CategoryBooks from "../pages/BooksByCategory/CategoryBooks";
 import AddProducts from "../pages/dashboard/AddProducts";
 import AllBuyers from "../pages/dashboard/AllBuyers";
@@ -46,6 +48,17 @@ const routes = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUp/>
+            },
+            {
+                path: '/blogs',
+                element: <Blogs/>,
+                loader: () => fetch(`http://localhost:5000/blogs`) 
+
+            },
+            {
+                path: '/blog/:id',
+                element: <BlogsDetail/>,
+                loader: ({params}) => fetch(`http://localhost:5000/blogs/${params.id}`) 
             }
         ]
 

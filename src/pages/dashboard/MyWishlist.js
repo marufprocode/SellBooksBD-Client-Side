@@ -51,7 +51,7 @@ const MyWishlist = () => {
                   </td>
                   <td>${order.price}</td>
                   <td>
-                  {order.paid? <button className="btn btn-sm btn-disabled">Paid</button>:<Link to={`/dashboard/payment/${order?._id}`} className="btn btn-sm btn-accent">Pay Now</Link> }
+                  {order.paid? <button className="btn btn-sm btn-disabled">Paid</button>:<Link to={`../category/${order?.category_id}`} className="btn btn-sm btn-accent">Buy Now</Link> }
                   </td>
                 </tr>
               ))}

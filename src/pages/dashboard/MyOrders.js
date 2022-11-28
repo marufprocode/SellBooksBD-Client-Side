@@ -41,7 +41,7 @@ const MyOrders = () => {
                     <td><img src={order.image} className="h-32" alt="OrderImage"/></td>
                     <td><p className="w-[150px] whitespace-pre-line">{order.itemName}</p></td>
                     <td>${order.price}</td>
-                    <td>{order.paid? <button className="btn btn-sm btn-disabled">Paid</button>:<Link to={`/dashboard/payment/${order?._id}`} className="btn btn-sm btn-accent">Pay Now</Link> }</td>
+                    <td>{order.paymentStatus === 'Paid'? <button className="btn btn-sm btn-disabled">Paid</button>:<Link to={`/dashboard/payment/${order?._id}`} className="btn btn-sm btn-accent">Pay Now</Link> }</td>
                 </tr>
                 ))}
             </tbody>

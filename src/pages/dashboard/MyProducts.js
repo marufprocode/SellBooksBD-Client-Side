@@ -79,7 +79,7 @@ const MyProducts = () => {
                     <td><p className="w-[150px] whitespace-pre-line">{product.bookName}</p></td>
                     <td>${product.resellPrice}</td>
                     <td>{product.isPaid?"Sold Out":product.isBooked?"Booked":"Available"}</td>
-                    <td><label htmlFor="advertise-confirm-modal" disabled={product.isPaid || product.advertised} className="btn btn-sm btn-accent" onClick={()=> setAdvertiseItem(product)}>{product.advertised? "advertised":"adversite"}</label></td>
+                    <td><label htmlFor="advertise-confirm-modal" disabled={product.isPaid || product.advertised} className="btn btn-sm btn-accent" onClick={()=> setAdvertiseItem(product)}>{product.isPaid? "Sold Out": product.advertised? "advertised":"adversite"}</label></td>
                     <td><label htmlFor="delete-product-confirm-modal" className="btn btn-sm btn-error" onClick={()=>setDeleteBookId(product._id)}>Delete</label></td>
                 </tr>
                 ))}

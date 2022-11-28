@@ -34,6 +34,7 @@ const AddProducts = () => {
     data['isBooked']=false;
     data['advertised']=false;
     data['isPaid']=false;
+    data['available']=true;
     getImgUrl(data.image[0])
     .then(res => {
         if(res.data.url){
