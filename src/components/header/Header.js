@@ -3,20 +3,20 @@ import { Link, useLocation } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 import logoImg from "../../assets/logo/bookSky.png";
 import NavLinks from "./NavLinks";
-import useUserRole from "../../hook/useUserRole";
+// import useUserRole from "../../hook/useUserRole";
 import sidebarLogo from "../../assets/images/hamburger.png"
 
 const Header = () => {
-  const { userSignOut, user } = useContext(sharedContext);
-  const [userRole] = useUserRole(user?.email);
+  const { userSignOut, user, userRole } = useContext(sharedContext);
+  // const [userRole] = useUserRole(user?.email);
   const location = useLocation();
   return (
-    <div className="navbar flex justify-between shadow-md bg-slate-50 px-7 fixed top-0 z-50">
+    <div className="navbar flex max-w-screen-2xl justify-between shadow-md bg-slate-50 px-7 fixed z-50" >
       <div className="flex">
         <img src={logoImg} alt="BrandLogo" className="h-[30px]" />
       </div>
       <div className="flex gap-2">
-        <div className="md:flex gap-3 hidden">
+        <div className={`${user?.uid? "md:flex gap-3 hidden":"flex gap-3"}`}>
           <NavLinks/>
         </div>
         {user?.uid && (

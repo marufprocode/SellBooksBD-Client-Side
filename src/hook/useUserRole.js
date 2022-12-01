@@ -1,5 +1,5 @@
 // import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+/* import axios from "axios";
 import { useEffect, useState } from "react";
 
 
@@ -20,7 +20,7 @@ const useUserRole = (email) => {
         }).catch(err => console.error('[error]:', err))
     },[email])
     return [userRole, isUserRoleLoading, isVerified];
-}
+} */
 /* const useUserRole = (email) => {
     const [userRole, setUserRole] = useState(null);
     const [isVerified, setIsVerified] = useState(false); 
@@ -45,4 +45,4 @@ const useUserRole = (email) => {
     return [userRole, isUserRoleLoading, isVerified];
 } */
 
-export default useUserRole;
+// export default useUserRole;

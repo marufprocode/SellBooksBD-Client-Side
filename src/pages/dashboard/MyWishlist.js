@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext } from "react";
+import { RotatingSquare } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
 
 const MyWishlist = () => {
   const { user } = useContext(sharedContext);
-  const { data: myWishlist = [] } = useQuery({
+  const { data: myWishlist = [], isLoading, refetch } = useQuery({
     // enabled: !!user?.email,
     queryKey: ["MyWishList"],
     queryFn: async () => {
@@ -19,9 +20,29 @@ const MyWishlist = () => {
         }
       );
       const data = res.data;
+      if(!data){
+        refetch();
+      }
       return data;
     },
   });
+
+  if (isLoading)
+    return (
+      <div className="w-full flex justify-center">
+        <RotatingSquare
+          height="100"
+          width="100"
+          color="#4fa94d"
+          ariaLabel="rotating-square-loading"
+          strokeWidth="4"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+
 
   return (
     <div className="px-5">

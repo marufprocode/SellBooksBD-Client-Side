@@ -3,23 +3,43 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { MdOutlineFavoriteBorder, MdVerified } from 'react-icons/md';
+import { RotatingSquare } from 'react-loader-spinner';
 import { useParams } from 'react-router-dom';
 import { sharedContext } from '../../context/UserContext';
-import useUserRole from '../../hook/useUserRole';
+// import useUserRole from '../../hook/useUserRole';
 import BookingModal from './BookingModal';
 
 const CategoryBooks = () => {
     const [book, setBook] = useState(null);
-    const {user} = useContext(sharedContext);  
-    const [userRole]=useUserRole(user?.email)
+    const {user, userRole} = useContext(sharedContext);  
+    // const [userRole]=useUserRole(user?.email)
     const {id} = useParams();
-    const {data:books=[], refetch} = useQuery({
+    const {data:books=[], isLoading, refetch} = useQuery({
         queryKey:['booksCollection'],
         queryFn: async () => {
             const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/category/${id}`);
+            if (!response.data.length){
+                refetch();
+            }
             return response.data;
         }
     })
+
+    if (isLoading || !books.length)
+      return (
+        <div className="w-full flex justify-center">
+          <RotatingSquare
+            height="100"
+            width="100"
+            color="#4fa94d"
+            ariaLabel="rotating-square-loading"
+            strokeWidth="4"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />
+        </div>
+      );
 
     const handleAddtoWishList = (book) => {
         const data = {
@@ -49,9 +69,9 @@ const CategoryBooks = () => {
     
     return (
         <section data-aos="fade-left">
-            <h4 className='font-bold font-ubuntu mt-10 px-24'>Books Category {'>>'} {books[0]?.category}</h4>
+            <h4 className='font-bold font-ubuntu pt-12 px-24'>Books Category {'>>'} {books[0]?.category}</h4>
             <div className='px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 justify-items-center my-8 gap-y-10'>
-                {   
+                {   books.length &&
                     books?.map(book => (
                         <div key={book._id} className='cursor-pointer relative overflow-hidden transition duration-200 transform rounded shadow-lg hover:-translate-y-2 hover:shadow-2xl bg-slate-100'>
                         <div className='max-w-full w-[270px]'>

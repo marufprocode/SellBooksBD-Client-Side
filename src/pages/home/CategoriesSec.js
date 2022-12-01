@@ -4,11 +4,14 @@ import { RotatingSquare } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import './home.css';
 const CategoriesSec = () => {
-    const {data: categories=[], isLoading} = useQuery({
+    const {data: categories=[], isLoading, refetch} = useQuery({
         queryKey:['productCategories'],
         queryFn: async () => {
             const response = await fetch("https://sellbooks-second-hand-books-selling-website.vercel.app/product-categories");
             const data = await response.json();
+            if(!data.length){
+              refetch(); 
+            }
             return data;
         }
     })

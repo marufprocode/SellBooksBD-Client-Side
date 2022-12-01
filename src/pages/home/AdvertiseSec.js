@@ -15,9 +15,10 @@ import "./AdvCarousel.css";
 // import required modules
 import { MdVerified } from 'react-icons/md';
 import { Autoplay, Navigation, Pagination } from "swiper";
+import { RotatingSquare } from 'react-loader-spinner';
 
 const AdvertiseSec = () => {
-    const {data:advertisedItems=[]} = useQuery({
+    const {data:advertisedItems=[], isLoading} = useQuery({
         queryKey:['advertisedItems'],
         queryFn: async () => {
             const response = await axios.get('https://sellbooks-second-hand-books-selling-website.vercel.app/advertised-items')
@@ -25,6 +26,22 @@ const AdvertiseSec = () => {
             return data;
         }
     })
+
+    if (isLoading)
+    return (
+      <div className="w-full flex justify-center">
+        <RotatingSquare
+          height="100"
+          width="100"
+          color="#4fa94d"
+          ariaLabel="rotating-square-loading"
+          strokeWidth="4"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
 
     return (
         <>

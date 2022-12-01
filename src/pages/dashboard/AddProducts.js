@@ -9,12 +9,12 @@ import { RotatingLines } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import getImgUrl from "../../callApi/GetImageURL";
 import { sharedContext } from "../../context/UserContext";
-import useUserRole from "../../hook/useUserRole";
+// import useUserRole from "../../hook/useUserRole";
 
 const AddProducts = () => {
   const { user } = useContext(sharedContext);
   const [addProductProcessing, setAddProductProcessing] = useState(false);
-  const [, , isVerified] = useUserRole(user?.email);
+  // const [, , isVerified] = useUserRole(user?.email);
   const navigate = useNavigate();
   const {
     register,
@@ -40,7 +40,7 @@ const AddProducts = () => {
     data["postDate"] = format(new Date(), "PP");
     data["sellerEmail"] = user?.email;
     data["sellerId"] = user?.uid;
-    data["verified"] = isVerified;
+    // data["verified"] = isVerified;
     data["isBooked"] = false;
     data["advertised"] = false;
     data["isPaid"] = false;

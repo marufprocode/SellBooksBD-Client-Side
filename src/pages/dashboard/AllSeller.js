@@ -2,13 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import toast from "react-hot-toast";
+import { RotatingSquare } from 'react-loader-spinner';
 import ConfirmationModal from '../../components/shared/ConfirmationModal';
 import { sharedContext } from '../../context/UserContext';
 
 const AllSeller = () => {
     const {user} = useContext(sharedContext);
     const [sellerId, setSellerId] = useState('');
-    const {data:sellers=[], refetch} = useQuery({
+    const {data:sellers=[], refetch, isLoading} = useQuery({
         queryKey:['SellersList'],
         queryFn: async () => {
             const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/all-sellers/Seller?email=${user?.email}`, {
@@ -17,9 +18,28 @@ const AllSeller = () => {
                 }
             })
             const data = response.data;
+            if(!data){
+                refetch();
+            }
             return data;
         }
-    })
+    });
+
+    if (isLoading)
+    return (
+      <div className="w-full flex justify-center">
+        <RotatingSquare
+          height="100"
+          width="100"
+          color="#4fa94d"
+          ariaLabel="rotating-square-loading"
+          strokeWidth="4"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
 
     const verifySeller = (id) => {
         axios.patch(`https://sellbooks-second-hand-books-selling-website.vercel.app/verify-seller/${id}?email=${user?.email}`, {verified:true}, {
@@ -35,7 +55,7 @@ const AllSeller = () => {
         })
         .catch(err => console.error('[error:]'))
     }
-    console.log(sellerId);
+    
     const deleteSeller = (id) => {
         axios.delete(`https://sellbooks-second-hand-books-selling-website.vercel.app/delete-user/${id}`, {
             headers: {

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { sharedContext } from '../../context/UserContext';
 import dahsboardImg from '../../assets/images/Dashboard-cut.png'
-import useUserRole from '../../hook/useUserRole';
+// import useUserRole from '../../hook/useUserRole';
 
 const Dashboard = () => {
-    const {user} = useContext(sharedContext);
-    const [userRole] = useUserRole(user?.email);
+    const {user, userRole} = useContext(sharedContext);
+    // const [userRole] = useUserRole(user?.email);
     return (
         <div>
             <div className='text-center pt-3 font-poppins'>

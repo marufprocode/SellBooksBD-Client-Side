@@ -4,11 +4,11 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { sharedContext } from "../../context/UserContext";
-import useUserRole from "../../hook/useUserRole";
+// import useUserRole from "../../hook/useUserRole";
 
 const BookingModal = ({ book, refetch }) => {
-  const { user } = useContext(sharedContext);
-  const [userRole] = useUserRole(user?.email);
+  const { user, userRole } = useContext(sharedContext);
+  // const [userRole] = useUserRole(user?.email);
   const {
     register,
     handleSubmit,

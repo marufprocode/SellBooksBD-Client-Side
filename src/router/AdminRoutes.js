@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { MagnifyingGlass } from 'react-loader-spinner';
 import { Navigate, useLocation } from 'react-router-dom';
 import { sharedContext } from '../context/UserContext';
-import useUserRole from '../hook/useUserRole';
+// import useUserRole from '../hook/useUserRole';
 
 const AdminRoutes = ({children}) => {
-    const {user, loading} = useContext(sharedContext);
-    const [userRole, isUserRoleLoading]= useUserRole(user?.email)
+    const {/* user, */ userRole, loading} = useContext(sharedContext);
+    // const [userRole, isUserRoleLoading]= useUserRole(user?.email)
     const location = useLocation();
-    if (loading || isUserRoleLoading)
+    if (loading /* || isUserRoleLoading */)
       return (
         <div className="min-h-screen flex justify-center items-center">
           <MagnifyingGlass

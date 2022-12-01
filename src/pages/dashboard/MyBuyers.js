@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
+import { RotatingSquare } from 'react-loader-spinner';
 import { sharedContext } from '../../context/UserContext';
 
 const MyBuyers = () => {
     const {user} = useContext(sharedContext);
     // const [sellerId, setSellerId] = useState('');
-    const {data:myBuyers=[]} = useQuery({
+    const {data:myBuyers=[], isLoading, refetch} = useQuery({
         queryKey:['MyBuyersList'],
         queryFn: async () => {
             const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/seller/my-buyers?email=${user?.email}`, {
@@ -15,9 +16,29 @@ const MyBuyers = () => {
                 }
             })
             const data = response.data;
+            if(!data){
+                refetch();
+            }
             return data;
         }
     })
+
+    if (isLoading)
+    return (
+      <div className="w-full flex justify-center">
+        <RotatingSquare
+          height="100"
+          width="100"
+          color="#4fa94d"
+          ariaLabel="rotating-square-loading"
+          strokeWidth="4"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+
     return (
         <div>
         {

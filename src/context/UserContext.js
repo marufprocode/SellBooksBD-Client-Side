@@ -11,13 +11,35 @@ import {
 } from "firebase/auth";
 import app from "../firebase/firebase.init";
 import getAccessToken from '../callApi/getAccessToken';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 const auth = getAuth(app);
+
 
 export const sharedContext = createContext(); 
 
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [userRole, setUserRole] = useState(true); 
+
+    const {refetch} = useQuery({
+      enabled: !!user?.email,
+      queryKey:['userRole'],
+      queryFn: async () => {
+          const response = await axios.get(`https://sellbooks-second-hand-books-selling-website.vercel.app/users/role/${user?.email}`, {
+              headers:{
+                  authorization: `bearer ${localStorage.getItem('accessToken')}`
+              }
+          })
+          const data = response.data;
+          if(!data.role){
+            refetch()
+          } 
+          setUserRole(data.role);
+          return data; 
+      }
+  })
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -73,6 +95,7 @@ const UserContext = ({children}) => {
 
     const contextData = {
       user,
+      userRole,
       loading,
       googleSignIn,
       createNewUser,

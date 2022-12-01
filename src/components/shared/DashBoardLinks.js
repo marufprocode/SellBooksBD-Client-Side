@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { sharedContext } from "../../context/UserContext";
-import useUserRole from "../../hook/useUserRole";
+// import useUserRole from "../../hook/useUserRole";
 
 const DashBoardLinks = () => {
-  const { user } = useContext(sharedContext);
-  const [userRole] = useUserRole(user?.email);
+  const { user, userRole } = useContext(sharedContext);
+  // const [userRole] = useUserRole(user?.email);
   return (
     <>
       {
